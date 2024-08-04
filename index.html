@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Business Idea Generator</title>
+  <style>
+    body {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: url(blob-scene-haikei\ \(2\).svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #idea-container {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+    p{
+        size: 32px;
+    }
+  
+  </style>
+</head>
+<body>
+  <h1 style="color: white;">Random Business Idea Generator</h1>
+  <h3 style="color: white;">Get a random idea and estimated revenue</h2>
+  <button id="generate-button">Get a Random Idea</button>
+  <div id="idea-container" style="color: white;"> </div>
+
+  <script>
+const businessIdeas = [
+  "Artisanal Soap Making (₦80,000)",
+  "Mobile Car Detailing (₦120,000)",
+  "Online Tutoring (₦50,000)",
+  "Handmade Jewelry Crafting (₦100,000)",
+  "Drone Photography/Videography (₦200,000)",
+  "Subscription-based Meal Prep Service (₦150,000)",
+  "Virtual Assistant Services (₦60,000)",
+  "Homemade Jam and Preserves (₦70,000)",
+  "Eco-friendly Household Cleaning Products (₦90,000)",
+  "Freelance Graphic Design (₦80,000)",
+  "Mobile Pet Grooming (₦120,000)",
+  "Online Secondhand Clothing Store (₦100,000)",
+  "Handmade Candle Making (₦75,000)",
+  "Freelance Translation Services (₦60,000)",
+  "Upcycled Furniture Restoration (₦150,000)",
+  "Podcasting and Audio Production (₦100,000)",
+  "Homemade Baked Goods (₦80,000)",
+  "Virtual Event Planning (₦120,000)",
+  "Handcrafted Pottery and Ceramics (₦150,000)",
+  "Online Fitness and Wellness Coaching (₦70,000)",
+  "Mobile Car Repair and Maintenance (₦200,000)",
+  "Subscription-based Flower Bouquet Delivery (₦120,000)",
+  "Freelance Website Development (₦150,000)",
+  "Homemade Organic Skincare Products (₦100,000)",
+  "Mobile Pet Sitting and Walking (₦80,000)",
+  "Handmade Sustainable Apparel (₦200,000)",
+  "Online Vintage and Collectibles Store (₦120,000)",
+  "Homemade Organic Baby Products (₦100,000)",
+  "Freelance Content Writing and Editing (₦70,000)",
+  "Mobile Mechanic and Repair Services (₦180,000)",
+  "Subscription-based Snack Box Delivery (₦100,000)",
+  "Handcrafted Leather Goods (₦150,000)",
+  "Online Fitness Equipment Rental (₦120,000)",
+  "Homemade Gourmet Sauces and Condiments (₦80,000)",
+  "Freelance Social Media Management (₦60,000)",
+  "Mobile Massage and Spa Services (₦150,000)",
+  "Subscription-based Meal Kits (₦180,000)",
+  "Handcrafted Wooden Toys and Puzzles (₦100,000)",
+  "Online Handyman and Home Repair Services (₦120,000)",
+  "Homemade Organic Pet Treats (₦70,000)",
+  "Freelance Video Production and Editing (₦150,000)",
+  "Mobile Lawn and Gardening Services (₦100,000)",
+  "Subscription-based Housekeeping and Cleaning (₦120,000)",
+  "Handcrafted Sustainable Furniture (₦200,000)",
+  "Online Personalized Stationery and Invitations (₦80,000)",
+  "Homemade Gourmet Popcorn (₦60,000)",
+  "Freelance Photography and Videography (₦120,000)",
+  "Mobile Bike Repair and Maintenance (₦90,000)",
+  "Subscription-based Healthy Snack Delivery (₦100,000)",
+  "Handcrafted Artisanal Glassware (₦150,000)",
+  "Online Personalized Gift Baskets (₦80,000)",
+  "Homemade Organic Herbal Teas (₦70,000)",
+  "Freelance Event Planning and Coordination (₦120,000)",
+  "Mobile Dog Grooming and Spa Services (₦100,000)",
+  "Subscription-based Sustainable Home Goods (₦150,000)",
+  "Handcrafted Artisanal Clothing (₦200,000)",
+  "Online Personalized Artwork and Prints (₦100,000)",
+  "Homemade Gourmet Granola (₦60,000)",
+  "Freelance Interior Design and Consulting (₦150,000)",
+  "Mobile Car Rental and Sharing (₦180,000)",
+  "Subscription-based Organic Beauty Box (₦120,000)",
+  "Handcrafted Artisanal Leather Goods (₦180,000)",
+  "Online Personalized Home Decor (₦100,000)",
+  "Homemade Organic Dog Treats (₦70,000)",
+  "Freelance Web Development and Design (₦150,000)",
+  "Mobile Handyman and Home Repair Services (₦120,000)",
+  "Subscription-based Outdoor Adventure Kits (₦150,000)",
+  "Handcrafted Artisanal Jewelry (₦120,000)",
+  "Online Personalized Stationery and Invitations (₦80,000)",
+  "Homemade Organic Lip Balms (₦60,000)",
+  "Freelance Social Media Influencer Marketing (₦100,000)",
+  "Handcrafted Sustainable Streetwear (₦180,000)",
+  "Online Vintage and Retro Clothing Boutique (₦150,000)",
+  "Homemade Organic Skincare and Cosmetics (₦120,000)",
+  "Freelance Personal Styling and Wardrobe Consultation (₦100,000)",
+  "Mobile Clothing Alteration and Repair Services (₦90,000)",
+  "Subscription-based Curated Fashion Box (₦150,000)",
+  "Handcrafted Artisanal Accessories (₦120,000)",
+  "Online Customized T-shirt and Apparel Design (₦100,000)",
+  "Homemade Organic Scented Candles and Diffusers (₦80,000)",
+  "Freelance Fashion Illustration and Design (₦120,000)",
+  "Mobile Luxury Handbag and Leather Goods Cleaning (₦100,000)",
+  "Subscription-based Sustainable Underwear and Loungewear (₦150,000)",
+  "Handcrafted Artisanal Shoes and Footwear (₦180,000)",
+  "Online Vintage and Antique Jewelry Marketplace (₦120,000)",
+  "Homemade Organic Bath and Body Products (₦100,000)",
+  "Freelance Fashion Blogging and Content Creation (₦80,000)",
+  "Mobile Bridal and Special Occasion Styling (₦150,000)",
+  "Subscription-based Luxury Accessory Rental (₦200,000)",
+  "Handcrafted Artisanal Leather Bags and Wallets (₦150,000)",
+  "Online Personalized Clothing and Alterations (₦120,000)",
+  "Homemade Organic Hair Care Products (₦90,000)",
+  "Freelance Fashion Photography and Lookbook Shooting (₦150,000)",
+  "Mobile Luxury Watch and Timepiece Repair (₦100,000)",
+  "Subscription-based Sustainable Activewear and Athleisure (₦180,000)",
+  "Handcrafted Artisanal Hats and Headwear (₦120,000)",
+  "Online Secondhand Luxury Designer Resale (₦150,000)",
+  "Homemade Organic Fragrance and Perfume (₦100,000)",
+  "Freelance Fashion Trend Forecasting and Consulting (₦120,000)",
+  "Mobile Luxury Handbag and Leather Goods Customization (₦150,000)",
+  "Subscription-based Sustainable Loungewear and Sleepwear (₦180,000)",
+  "Handcrafted Artisanal Jewelry and Accessories (₦120,000)",
+  "Online Personalized Bridal and Wedding Attire (₦200,000)",
+  "Homemade Organic Bath Bombs and Salts (₦80,000)",
+  "Freelance Fashion Event and Runway Production (₦150,000)",
+  "Mobile Luxury Clothing Rental and Subscription (₦180,000)",
+  "Subscription-based Sustainable Lingerie and Intimates (₦200,000)",
+  "Handcrafted Artisanal Scarves and Shawls (₦100,000)",
+  "Online Personalized Maternity and Nursing Wear (₦150,000)",
+  "Homemade Organic Lip Glosses and Balms (₦70,000)",
+  "Freelance Fashion Design and Pattern-making (₦180,000)",
+  "Mobile Luxury Accessory Cleaning and Restoration (₦120,000)",
+  "Subscription-based Sustainable Childrenswear (₦150,000)",
+  "Handcrafted Artisanal Belts and Suspenders (₦90,000)",
+  "Online Personalized Athleisure and Activewear (₦180,000)",
+  "Homemade Organic Body Butters and Creams (₦80,000)",
+  "Freelance Fashion Influencer Marketing and Collaboration (₦120,000)",
+  "Handcrafted Artisanal Woodworking and Furniture (₦150,000)",
+  "Online Organic Hydroponic Gardening Supplies (₦120,000)", 
+  "Homemade Gourmet Jam and Preserves (₦80,000)",
+  "Freelance Pet Photography and Portraits (₦100,000)",
+  "Mobile Bicycle Repair and Tune-up Services (₦90,000)",
+  "Subscription-based Craft Beer and Microbrewery (₦180,000)",
+  "Handcrafted Artisanal Pottery and Ceramics (₦120,000)",
+  "Online Vintage and Antique Book Marketplace (₦150,000)",
+  "Homemade Small-batch Artisanal Chocolate (₦100,000)",
+  "Freelance Virtual Assistant and Administrative Support (₦70,000)",
+  "Mobile Lawn Care and Landscape Maintenance (₦80,000)",
+  "Subscription-based Wellness and Meditation Guides (₦120,000)",
+  "Handcrafted Artisanal Leather Journals and Notebooks (₦150,000)",
+  "Online Specialty and Gourmet Food Emporium (₦180,000)",
+  "Homemade Organic Cold-pressed Juices (₦90,000)",
+  "Freelance Videography and Video Editing Services (₦120,000)",
+  "Mobile Automotive Detailing and Reconditioning (₦100,000)",
+  "Subscription-based Healthy Meal Prep and Delivery (₦150,000)",
+  "Handcrafted Artisanal Stained Glass and Mosaics (₦120,000)",
+  "Online Refurbished and Vintage Tech Marketplace (₦180,000)",
+  "Homemade Small-batch Artisanal Baked Goods (₦80,000)",
+  "Freelance Web Design and Development (₦150,000)",
+  "Mobile Dog Grooming and Pet Spa Services (₦90,000)",
+  "Subscription-based Urban Gardening and Composting (₦120,000)",
+  "Handcrafted Artisanal Wooden Toys and Puzzles (₦100,000)",
+  "Online Specialty and Gourmet Coffee Roastery (₦150,000)",
+  "Homemade Organic CBD and Hemp-based Products (₦120,000)",
+  "Freelance Graphic Design and Branding Services (₦180,000)",
+  "Mobile Appliance Repair and Maintenance (₦100,000)",
+  "Subscription-based Artisanal Cheese and Charcuterie (₦150,000)",
+  "Handcrafted Artisanal Candles and Essential Oils (₦90,000)",
+  "Online Refurbished and Vintage Home Decor (₦180,000)",
+  "Homemade Small-batch Artisanal Pickles and Ferments (₦80,000)",
+  "Freelance Photography and Videography Services (₦150,000)",
+  "Mobile Bicycle Rentals and Tours (₦100,000)",
+  "Subscription-based Sustainable Home Cleaning (₦120,000)",
+  "Handcrafted Artisanal Wooden Kitchenware (₦100,000)",
+  "Online Specialty and Gourmet Tea Emporium (₦150,000)",
+  "Homemade Organic Body Care and Bath Products (₦90,000)",
+  "Freelance App Development and Software Engineering (₦200,000)",
+  "Mobile Car Detailing and Maintenance (₦120,000)",
+  "Subscription-based Organic Meal Kits and Recipes (₦150,000)",
+  "Handcrafted Artisanal Outdoor and Camping Gear (₦180,000)",
+  "Online Refurbished and Vintage Musical Instruments (₦200,000)",
+  "Homemade Small-batch Artisanal Sauces and Condiments (₦80,000)",
+  "Freelance Interior Design and Home Staging (₦150,000)"
+]
+
+
+
+
+
+    const ideaContainer = document.getElementById('idea-container');
+    const generateButton = document.getElementById('generate-button');
+
+    function generateIdea() {
+      const randomIndex = Math.floor(Math.random() * businessIdeas.length);
+      ideaContainer.textContent = businessIdeas[randomIndex];
+    }
+
+    generateButton.addEventListener('click', generateIdea);
+
+    // Call the generateIdea function when the page loads
+    generateIdea();
+  </script>
+</body>
+</html>
